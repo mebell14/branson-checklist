@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Branson 4th of July 🎆</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap');
+
+    :root {
+      --navy: #1B2A4A;
+      --red: #C0392B;
+      --cream: #FAF7F2;
+      --white: #FFFFFF;
+      --gold: #D4A843;
+      --light-gray: #F0EDE8;
+      --mid-gray: #9A9590;
+      --text: #2C2C2C;
+      --done-text: #AAAAAA;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--navy);
+      color: var(--white);
+      padding: 2.5rem 2rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 5px;
+      background: repeating-linear-gradient(90deg, var(--red) 0px, var(--red) 20px, var(--white) 20px, var(--white) 40px, var(--navy) 40px, var(--navy) 60px);
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.4rem;
+    }
+
+    header p {
+      color: #AAB8CC;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .progress-bar-wrap {
+      background: rgba(255,255,255,0.1);
+      border-radius: 999px;
+      height: 8px;
+      width: 280px;
+      margin: 1.2rem auto 0;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--gold);
+      border-radius: 999px;
+      transition: width 0.4s ease;
+    }
+
+    .progress-label {
+      font-size: 0.78rem;
+      color: var(--gold);
+      margin-top: 0.4rem;
+      letter-spacing: 0.05em;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 1.25rem 1rem;
+      background: var(--white);
+      border-bottom: 1px solid #E5E0D8;
+      flex-wrap: wrap;
+    }
+
+    .controls button {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.45rem 1rem;
+      border-radius: 999px;
+      border: 1.5px solid var(--navy);
+      background: transparent;
+      color: var(--navy);
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: all 0.15s;
+    }
+
+    .controls button:hover {
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    .controls button.danger {
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    .controls button.danger:hover {
+      background: var(--red);
+      color: var(--white);
+    }
+
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+    }
+
+    .section {
+      margin-bottom: 2rem;
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.25rem;
+      cursor: pointer;
+      user-select: none;
+      border-bottom: 1px solid var(--light-gray);
+    }
+
+    .section-header:hover {
+      background: var(--light-gray);
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .section-emoji {
+      font-size: 1.2rem;
+    }
+
+    .section-badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: var(--light-gray);
+      color: var(--mid-gray);
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+    }
+
+    .section-badge.complete {
+      background: #E8F5E9;
+      color: #388E3C;
+    }
+
+    .chevron {
+      font-size: 0.75rem;
+      color: var(--mid-gray);
+      transition: transform 0.2s;
+    }
+
+    .section.collapsed .chevron {
+      transform: rotate(-90deg);
+    }
+
+    .section-body {
+      padding: 0.5rem 0;
+    }
+
+    .section.collapsed .section-body {
+      display: none;
+    }
+
+    .subsection-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mid-gray);
+      padding: 0.75rem 1.25rem 0.3rem;
+    }
+
+    .item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.55rem 1.25rem;
+      transition: background 0.1s;
+      cursor: pointer;
+    }
+
+    .item:hover {
+      background: var(--light-gray);
+    }
+
+    .item input[type="checkbox"] {
+      width: 17px;
+      height: 17px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      accent-color: var(--navy);
+      cursor: pointer;
+    }
+
+    .item label {
+      font-size: 0.9rem;
+      line-height: 1.4;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .item.checked label {
+      color: var(--done-text);
+      text-decoration: line-through;
+    }
+
+    .note {
+      font-size: 0.78rem;
+      color: var(--mid-gray);
+      font-style: italic;
+      padding: 0.25rem 1.25rem 0.5rem 3.25rem;
+    }
+
+    .todo-section .item label {
+      font-weight: 500;
+    }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.8rem; }
+      .controls { gap: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Branson 4th of July 🎆</h1>
+  <p>Thursday Jul 3 — Sunday Jul 6 &nbsp;·&nbsp; Family of 6</p>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+  </div>
+  <div class="progress-label" id="progressLabel">0 of 0 checked</div>
+</header>
+
+<div class="controls">
+  <button onclick="expandAll()">Expand All</button>
+  <button onclick="collapseAll()">Collapse All</button>
+  <button onclick="checkAll()">Check All</button>
+  <button class="danger" onclick="clearAll()">Clear All</button>
+</div>
+
+<main id="checklist"></main>
+
+<script>
+const data = [
+  {
+    id: "todo",
+    emoji: "✅",
+    title: "Pre-Trip To-Do",
+    items: [
+      { text: "Grocery shop by Wednesday" },
+      { text: "Make pasta salad Thursday morning before leaving", note: "Better after sitting — make early!" },
+      { text: "Pre-pack brownie bite ingredients (bake at rental)" },
+      { text: "Prep monkey bread ingredients before leaving (or assemble Thursday night)", note: "Bake Friday morning — feeds the whole house!" },
+      { text: "Pack coolers Wednesday night so they're cold" },
+      { text: "Inflate floaties — or pack hand pump" },
+      { text: "Charge all devices & portable charger" },
+      { text: "Confirm rental amenities: grill, dishes, hair dryer, spatula/tongs" },
+      { text: "Coordinate with group on Saturday grill out — claim your item (burgers or hot dogs)" },
+      { text: "Pack kids' backpacks with tablets & entertainment for the drive" },
+      { text: "Gas up the car" },
+    ]
+  },
+  {
+    id: "grocery",
+    emoji: "🛒",
+    title: "Grocery List",
+    subsections: [
+      {
+        label: "Produce",
+        items: [
+          { text: "Strawberries (2 lbs)" },
+          { text: "Blueberries (2 pints)" },
+          { text: "Bananas" },
+          { text: "Cherry tomatoes" },
+          { text: "Cucumber" },
+          { text: "Red grapes" },
+          { text: "Apples (breakfast fruit)" },
+          { text: "Lettuce & tomato (grill out toppings)" },
+        ]
+      },
+      {
+        label: "Dairy",
+        items: [
+          { text: "Cream cheese (1 block)" },
+          { text: "Colby jack cheese (block or pre-cubed)" },
+          { text: "White cheddar" },
+          { text: "Shredded parmesan" },
+          { text: "American cheese slices (grill out)" },
+          { text: "Individual yogurts (6–9)" },
+          { text: "Eggs (2 dozen)" },
+          { text: "Butter" },
+          { text: "Cool Whip (1 tub)" },
+        ]
+      },
+      {
+        label: "Meat",
+        items: [
+          { text: "Salami (1 pack)" },
+          { text: "Pepperoni — large pack (board + pasta salad)" },
+          { text: "Bacon or sausage links (breakfast)" },
+          { text: "Ground beef (2 lbs) — Saturday grill out" },
+          { text: "Hot dogs (2 packs) — Saturday grill out" },
+        ]
+      },
+      {
+        label: "Monkey Bread — Friday Breakfast",
+        items: [
+          { text: "Refrigerated biscuit dough (3–4 cans for 9 people)" },
+          { text: "Butter (1 stick)" },
+          { text: "Brown sugar (1 cup)" },
+          { text: "Granulated sugar (½ cup)" },
+          { text: "Cinnamon (2–3 tsp)" },
+          { text: "Bundt pan (verify rental has one, else bring or buy disposable)" },
+          { text: "Optional: cream cheese glaze — powdered sugar + cream cheese + milk" },
+        ]
+      },
+      {
+        label: "Dry & Pantry",
+        items: [
+          { text: "Rotini pasta (2 boxes)" },
+          { text: "Italian dressing (1 large bottle)" },
+          { text: "Black olives (1 can)" },
+          { text: "Tortilla chips (2 bags)" },
+          { text: "Ritz crackers" },
+          { text: "Wheat crackers" },
+          { text: "Salsa (2 jars)" },
+          { text: "Queso dip (2 jars)" },
+          { text: "Guacamole (jarred)" },
+          { text: "Brownie mix (2 boxes)" },
+          { text: "Marshmallow fluff" },
+          { text: "Granola bars (2 boxes)" },
+          { text: "Muffins (bakery or mix)" },
+          { text: "Frozen biscuits or crescent rolls" },
+          { text: "OJ" },
+          { text: "Coffee + creamer" },
+          { text: "Burger buns" },
+          { text: "Hot dog buns" },
+          { text: "Ketchup, mustard, mayo" },
+        ]
+      },
+      {
+        label: "Paper & Supplies",
+        items: [
+          { text: "Wooden skewers" },
+          { text: "Toothpicks" },
+          { text: "Red, blue & white disposable bowls & plates" },
+          { text: "Extra napkins" },
+          { text: "Serving tongs & spoons" },
+          { text: "Gallon & quart zip bags" },
+          { text: "Aluminum foil" },
+          { text: "Disposable grill tray (in case rental grill is rough)" },
+        ]
+      }
+    ]
+  },
+  {
+    id: "pool",
+    emoji: "🏖️",
+    title: "Pool & Outdoor",
+    items: [
+      { text: "Pool towels — 6 (one per person in your family)" },
+      { text: "Floaties / pool toys" },
+      { text: "Life jacket for the 2-year-old ⭐" },
+      { text: "Puddle jumper or arm floaties for the 6-year-old" },
+      { text: "Swim shoes / flip flops — all 6 of you" },
+      { text: "Sunscreen — at least 2 bottles" },
+      { text: "Sunglasses — adults & older kids" },
+      { text: "Waterproof pool bag" },
+      { text: "Waterproof phone pouch" },
+      { text: "Bluetooth speaker" },
+      { text: "Folding camp chairs for poolside" },
+      { text: "Pop-up shade tent or umbrella (great for the 2-year-old)" },
+      { text: "Reusable water bottles — 1 per person" },
+      { text: "Bug spray" },
+      { text: "Swim goggles for older kids" },
+      { text: "Glow sticks for 4th of July night 🎆" },
+    ]
+  },
+  {
+    id: "kitchen",
+    emoji: "🏠",
+    title: "Kitchen & House Extras",
+    items: [
+      { text: "Cooler for drinks" },
+      { text: "Cooler for food" },
+      { text: "Ice or ice packs" },
+      { text: "Cutting board & sharp knife" },
+      { text: "Serving bowls & spoons" },
+      { text: "Can opener" },
+      { text: "Plastic wrap" },
+      { text: "Paper towels (small roll)" },
+      { text: "Dish soap & sponge (verify rental has some)" },
+      { text: "Trash bags" },
+      { text: "Spatula & tongs for grilling (verify rental has, else bring)" },
+      { text: "Meat thermometer" },
+    ]
+  },
+  {
+    id: "toiletries",
+    emoji: "🧴",
+    title: "Toiletries & Bathroom",
+    subsections: [
+      {
+        label: "Adults — You & Lee",
+        items: [
+          { text: "Shampoo, conditioner, body wash" },
+          { text: "Deodorant x2" },
+          { text: "Razors" },
+          { text: "Face wash & moisturizer" },
+          { text: "Toothbrushes & toothpaste x2" },
+          { text: "Makeup + remover" },
+          { text: "Hair dryer (verify rental has one first)" },
+          { text: "Hair products" },
+          { text: "Contact supplies if needed" },
+        ]
+      },
+      {
+        label: "Kids — All 4",
+        items: [
+          { text: "Kids shampoo/body wash (1 bottle covers all)" },
+          { text: "Kids toothbrushes & toothpaste" },
+          { text: "Detangler + hairbrush/comb" },
+          { text: "Hair ties & clips" },
+          { text: "Diapers — full pack plus extras for the 2-year-old" },
+          { text: "Wipes" },
+          { text: "Pull-ups if needed overnight" },
+          { text: "Diaper cream" },
+        ]
+      },
+      {
+        label: "First Aid & Misc",
+        items: [
+          { text: "Ibuprofen/Tylenol — adult + kids doses" },
+          { text: "Band-aids" },
+          { text: "Allergy meds if needed" },
+          { text: "Aloe vera / sunburn relief" },
+          { text: "Thermometer" },
+          { text: "Stomach meds (Pepto, etc.)" },
+          { text: "Hand sanitizer" },
+          { text: "Extra hair ties" },
+        ]
+      }
+    ]
+  },
+  {
+    id: "clothing",
+    emoji: "👕",
+    title: "Clothing (Thu–Sun)",
+    subsections: [
+      {
+        label: "You & Lee — each",
+        items: [
+          { text: "4 outfits" },
+          { text: "2 swimsuits each (one to wear, one to dry)" },
+          { text: "1 nicer outfit for Saturday evening" },
+          { text: "Pajamas x3" },
+          { text: "Underwear x5" },
+          { text: "Socks x4" },
+          { text: "Casual shoes + flip flops" },
+          { text: "Light jacket or hoodie (evenings)" },
+          { text: "Hat or cap" },
+        ]
+      },
+      {
+        label: "11 & 9-year-old — each",
+        items: [
+          { text: "4 outfits" },
+          { text: "2 swimsuits" },
+          { text: "Pajamas x3" },
+          { text: "Underwear x5" },
+          { text: "Socks x4" },
+          { text: "Shoes + flip flops" },
+          { text: "Hoodie or light jacket" },
+          { text: "Hat" },
+        ]
+      },
+      {
+        label: "6-year-old",
+        items: [
+          { text: "4–5 outfits (extra for spills & pool)" },
+          { text: "2 swimsuits" },
+          { text: "Pajamas x3" },
+          { text: "Underwear x5" },
+          { text: "Socks x4" },
+          { text: "Shoes + flip flops" },
+          { text: "Hoodie" },
+          { text: "Hat" },
+        ]
+      },
+      {
+        label: "2-year-old",
+        items: [
+          { text: "5–6 outfits (always pack extra)" },
+          { text: "2 swimsuits + rash guard" },
+          { text: "Swim diapers — full pack" },
+          { text: "Pajamas x3" },
+          { text: "Diapers for entire trip + extras" },
+          { text: "Socks x5" },
+          { text: "Shoes + sandals" },
+          { text: "Hoodie or light zip-up" },
+          { text: "Sun hat" },
+        ]
+      }
+    ]
+  },
+  {
+    id: "entertainment",
+    emoji: "🎒",
+    title: "Entertainment & Misc",
+    subsections: [
+      {
+        label: "For the 2-year-old",
+        items: [
+          { text: "Pack n play or travel crib if needed" },
+          { text: "Sound machine" },
+          { text: "Favorite stuffed animal / lovey" },
+          { text: "Snack cup + sippy cup" },
+          { text: "Bibs" },
+          { text: "A few small toys" },
+        ]
+      },
+      {
+        label: "For All Kids",
+        items: [
+          { text: "Tablets or devices + chargers" },
+          { text: "Headphones" },
+          { text: "Card games or small travel games" },
+          { text: "Glow sticks for 4th of July night" },
+        ]
+      },
+      {
+        label: "Adults",
+        items: [
+          { text: "Phone chargers — everyone" },
+          { text: "Portable charger / power bank" },
+          { text: "Camera or GoPro" },
+          { text: "Cash for Saturday food trucks (if group goes that route at lunch)" },
+          { text: "Daily medications for anyone who takes them" },
+          { text: "ID & insurance cards" },
+        ]
+      }
+    ]
+  }
+];
+
+function buildChecklist() {
+  const main = document.getElementById('checklist');
+  main.innerHTML = '';
+
+  data.forEach(section => {
+    const sec = document.createElement('div');
+    sec.className = 'section';
+    sec.dataset.id = section.id;
+
+    const allItems = getAllItems(section);
+    const checkedCount = allItems.filter(k => localStorage.getItem(k) === 'true').length;
+    const isComplete = allItems.length > 0 && checkedCount === allItems.length;
+
+    const header = document.createElement('div');
+    header.className = 'section-header';
+    header.innerHTML = `
+      <div class="section-title">
+        <span class="section-emoji">${section.emoji}</span>
+        <span>${section.title}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:0.6rem;">
+        <span class="section-badge ${isComplete ? 'complete' : ''}">${checkedCount}/${allItems.length}</span>
+        <span class="chevron">▼</span>
+      </div>
+    `;
+    header.addEventListener('click', () => {
+      sec.classList.toggle('collapsed');
+    });
+
+    const body = document.createElement('div');
+    body.className = 'section-body';
+
+    if (section.items) {
+      section.items.forEach(item => {
+        body.appendChild(buildItem(section.id, item));
+      });
+    }
+
+    if (section.subsections) {
+      section.subsections.forEach(sub => {
+        const label = document.createElement('div');
+        label.className = 'subsection-label';
+        label.textContent = sub.label;
+        body.appendChild(label);
+        sub.items.forEach(item => {
+          body.appendChild(buildItem(section.id + '_' + sub.label.replace(/\s+/g,'_'), item));
+        });
+      });
+    }
+
+    sec.appendChild(header);
+    sec.appendChild(body);
+    main.appendChild(sec);
+  });
+
+  updateProgress();
+}
+
+function buildItem(prefix, item) {
+  const key = prefix + '::' + item.text;
+  const checked = localStorage.getItem(key) === 'true';
+
+  const div = document.createElement('div');
+  div.className = 'item' + (checked ? ' checked' : '');
+
+  const id = 'cb_' + Math.random().toString(36).slice(2);
+  const cb = document.createElement('input');
+  cb.type = 'checkbox';
+  cb.id = id;
+  cb.checked = checked;
+
+  const lbl = document.createElement('label');
+  lbl.htmlFor = id;
+  lbl.textContent = item.text;
+
+  cb.addEventListener('change', () => {
+    localStorage.setItem(key, cb.checked);
+    div.classList.toggle('checked', cb.checked);
+    buildChecklist();
+  });
+
+  div.addEventListener('click', e => {
+    if (e.target !== cb) cb.click();
+  });
+
+  div.appendChild(cb);
+  div.appendChild(lbl);
+
+  if (item.note) {
+    const note = document.createElement('div');
+    note.className = 'note';
+    note.textContent = '💡 ' + item.note;
+    // append note after the item row
+    div.appendChild(document.createElement('br'));
+    const noteRow = document.createElement('div');
+    noteRow.className = 'note';
+    noteRow.textContent = '💡 ' + item.note;
+    div.appendChild(noteRow);
+  }
+
+  return div;
+}
+
+function getAllItems(section) {
+  const keys = [];
+  const prefix = section.id;
+  if (section.items) {
+    section.items.forEach(item => keys.push(prefix + '::' + item.text));
+  }
+  if (section.subsections) {
+    section.subsections.forEach(sub => {
+      const subPrefix = prefix + '_' + sub.label.replace(/\s+/g,'_');
+      sub.items.forEach(item => keys.push(subPrefix + '::' + item.text));
+    });
+  }
+  return keys;
+}
+
+function updateProgress() {
+  let total = 0, checked = 0;
+  data.forEach(section => {
+    const keys = getAllItems(section);
+    total += keys.length;
+    checked += keys.filter(k => localStorage.getItem(k) === 'true').length;
+  });
+  const pct = total === 0 ? 0 : Math.round((checked / total) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = `${checked} of ${total} checked`;
+}
+
+function expandAll() {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('collapsed'));
+}
+function collapseAll() {
+  document.querySelectorAll('.section').forEach(s => s.classList.add('collapsed'));
+}
+function checkAll() {
+  data.forEach(section => {
+    getAllItems(section).forEach(k => localStorage.setItem(k, 'true'));
+  });
+  buildChecklist();
+}
+function clearAll() {
+  if (!confirm('Clear all checkmarks?')) return;
+  data.forEach(section => {
+    getAllItems(section).forEach(k => localStorage.removeItem(k));
+  });
+  buildChecklist();
+}
+
+buildChecklist();
+</script>
+</body>
+</html>
