@@ -295,7 +295,134 @@ const data = [
     ]
   },
   {
-    id: "grocery",
+    id: "schedule",
+    emoji: "📅",
+    title: "Packing Schedule (Sat Jun 28 – Thu Jul 3)",
+    subsections: [
+      {
+        label: "Saturday Jun 28",
+        items: [
+          { text: "Pull out all the suitcases" },
+          { text: "Start a running 'remember this' note on your phone" },
+          { text: "Check espresso machine, frother & fan all work" },
+          { text: "Check floaties — inflate any that need it or find the pump" },
+        ]
+      },
+      {
+        label: "Sunday Jun 29",
+        items: [
+          { text: "Grocery shop — get everything in one trip" },
+          { text: "Wash all pool towels & clothes you want to pack clean" },
+          { text: "Find or buy a bundt pan for monkey bread" },
+        ]
+      },
+      {
+        label: "Monday Jun 30",
+        items: [
+          { text: "Pack the kids' clothes & shoes (all 4)" },
+          { text: "Pack toiletry bags — kids' and yours" },
+          { text: "Pull together entertainment bag (tablets, chargers, headphones, card games)" },
+          { text: "Gather 2-year-old's stuff (pack n play, sound machine, blankie, lovey, snack cup)" },
+        ]
+      },
+      {
+        label: "Tuesday Jul 1",
+        items: [
+          { text: "Pack your clothes & Lee's" },
+          { text: "Pack coffee station (espresso machine, beans, frother, syrups, cups)" },
+          { text: "Pack the fan" },
+          { text: "Gather kitchen extras (knife, cutting board, serving bowls, zip bags, foil)" },
+          { text: "Confirm with group what you're bringing for the grill out" },
+        ]
+      },
+      {
+        label: "Wednesday Jul 2",
+        items: [
+          { text: "Make the pasta salad 🥗 — refrigerate so it has time to chill" },
+          { text: "Pack the coolers with drinks & ice" },
+          { text: "Load the car — big stuff first (coolers, pack n play, luggage)" },
+          { text: "Set out everything going in the car so nothing gets left" },
+          { text: "Charge all devices overnight" },
+          { text: "Lay out Thursday morning clothes for everyone" },
+        ]
+      },
+      {
+        label: "Thursday Jul 3 — Departure Day",
+        items: [
+          { text: "Assemble monkey bread & refrigerate for Friday morning ⭐" },
+          { text: "Last sweep of every room" },
+          { text: "Grab pasta salad from fridge — don't leave it! ⭐" },
+          { text: "Gas up the car" },
+          { text: "GO! 🎆" },
+        ]
+      },
+    ]
+  },
+  {
+    emoji: "🍽️",
+    title: "Meal Plan & Food Prep",
+    subsections: [
+      {
+        label: "Thursday Night — Pizza Night (Mom's plan)",
+        items: [
+          { text: "Nothing to prep — just show up and enjoy!" },
+        ]
+      },
+      {
+        label: "Friday Breakfast — Monkey Bread 🎆",
+        items: [
+          { text: "Assemble monkey bread Thursday night", note: "Cut biscuits, toss in cinnamon sugar, layer in bundt pan, refrigerate overnight" },
+          { text: "Bake Friday morning (350° for ~35–40 min)" },
+          { text: "Optional cream cheese glaze on top" },
+          { text: "Serve with OJ & coffee" },
+        ]
+      },
+      {
+        label: "Friday Lunch — 4th of July Poolside Spread",
+        items: [
+          { text: "Red, white & blue fruit skewers with cream cheese dip" },
+          { text: "Chips, salsa, queso & guacamole spread" },
+          { text: "Stars & stripes brownie bites" },
+        ]
+      },
+      {
+        label: "Friday Supper — Mom's Pulled Pork + Your Side",
+        items: [
+          { text: "Classic pasta salad — make Thursday morning before leaving!", note: "Better after sitting in the fridge" },
+        ]
+      },
+      {
+        label: "Saturday Breakfast — Mix It Up",
+        items: [
+          { text: "Grab & go: muffins, granola bars, yogurts, fruit" },
+          { text: "Simple hot: scrambled eggs, bacon or sausage, biscuits" },
+        ]
+      },
+      {
+        label: "Saturday Lunch — General Store or Food Trucks",
+        items: [
+          { text: "Bring cash for food trucks / general store" },
+          { text: "Pack a few snacks just in case" },
+        ]
+      },
+      {
+        label: "Saturday Supper — Group Grill Out",
+        items: [
+          { text: "Confirm with group what you're bringing (burgers, hot dogs, or both)" },
+          { text: "Burgers: ground beef patties, buns, cheese, condiments, toppings" },
+          { text: "Hot dogs: dogs, buns, ketchup & mustard" },
+        ]
+      },
+      {
+        label: "Sunday — On Your Own & Check Out",
+        items: [
+          { text: "Grab leftover breakfast items for the road" },
+          { text: "Pack up any remaining food to bring home" },
+        ]
+      },
+    ]
+  },
+  {
     emoji: "🛒",
     title: "Grocery List",
     subsections: [
@@ -307,7 +434,6 @@ const data = [
           { text: "Bananas" },
           { text: "Cherry tomatoes" },
           { text: "Cucumber" },
-          { text: "Red grapes" },
           { text: "Apples (breakfast fruit)" },
           { text: "Lettuce & tomato (grill out toppings)" },
         ]
@@ -316,8 +442,7 @@ const data = [
         label: "Dairy",
         items: [
           { text: "Cream cheese (1 block)" },
-          { text: "Colby jack cheese (block or pre-cubed)" },
-          { text: "White cheddar" },
+          { text: "Colby jack cheese cubes (pasta salad)", note: "Don't skip this — it was removed with charcuterie but still needed for the pasta salad!" },
           { text: "Shredded parmesan" },
           { text: "American cheese slices (grill out)" },
           { text: "Individual yogurts (6–9)" },
@@ -329,8 +454,7 @@ const data = [
       {
         label: "Meat",
         items: [
-          { text: "Salami (1 pack)" },
-          { text: "Pepperoni — large pack (board + pasta salad)" },
+          { text: "Pepperoni — large pack (pasta salad)" },
           { text: "Bacon or sausage links (breakfast)" },
           { text: "Ground beef (2 lbs) — Saturday grill out" },
           { text: "Hot dogs (2 packs) — Saturday grill out" },
@@ -355,8 +479,6 @@ const data = [
           { text: "Italian dressing (1 large bottle)" },
           { text: "Black olives (1 can)" },
           { text: "Tortilla chips (2 bags)" },
-          { text: "Ritz crackers" },
-          { text: "Wheat crackers" },
           { text: "Salsa (2 jars)" },
           { text: "Queso dip (2 jars)" },
           { text: "Guacamole (jarred)" },
@@ -375,8 +497,7 @@ const data = [
       {
         label: "Paper & Supplies",
         items: [
-          { text: "Wooden skewers" },
-          { text: "Toothpicks" },
+          { text: "Wooden skewers (fruit skewers)" },
           { text: "Red, blue & white disposable bowls & plates" },
           { text: "Extra napkins" },
           { text: "Serving tongs & spoons" },
@@ -398,6 +519,7 @@ const data = [
       { text: "Puddle jumper or arm floaties for the 6-year-old" },
       { text: "Swim shoes / flip flops — all 6 of you" },
       { text: "Sunscreen — at least 2 bottles" },
+      { text: "Sunscreen stick for the 2-year-old's face", note: "So much easier than spray or lotion on a squirmy toddler." },
       { text: "Sunglasses — adults & older kids" },
       { text: "Waterproof pool bag" },
       { text: "Waterproof phone pouch" },
@@ -422,11 +544,13 @@ const data = [
       { text: "Serving bowls & spoons" },
       { text: "Can opener" },
       { text: "Plastic wrap" },
-      { text: "Paper towels (small roll)" },
+      { text: "Paper towels — bring extra, rentals never have enough", note: "Seriously, bring more than you think you need." },
+      { text: "All-purpose cleaner spray" },
       { text: "Dish soap & sponge (verify rental has some)" },
       { text: "Trash bags" },
       { text: "Spatula & tongs for grilling (verify rental has, else bring)" },
       { text: "Meat thermometer" },
+      { text: "Gallon Ziplocs for leftover grill out food" },
     ]
   },
   {
@@ -540,37 +664,97 @@ const data = [
   {
     id: "entertainment",
     emoji: "🎒",
-    title: "Entertainment & Misc",
+    title: "Entertainment, Games & Car",
     subsections: [
+      {
+        label: "Games & Activities",
+        items: [
+          { text: "Piles" },
+          { text: "Phase 10" },
+          { text: "Uno" },
+          { text: "Spot It" },
+          { text: "Taco Cat Goat Cheese Pizza", note: "You have it but never played — look up the rules before you go so you're not fumbling at the house!" },
+          { text: "Glow sticks + glow bracelets — buy a big pack for 4th of July night 🎆" },
+          { text: "Sidewalk chalk (if rental has a driveway or patio)" },
+          { text: "Frisbee or football for the yard" },
+          { text: "Net — decide based on whether the Airbnb has a yard", note: "If there's grass, bring it. Totally worth it with a 2-year-old running around." },
+          { text: "Ball stuff (kids are bringing their own)" },
+        ]
+      },
+      {
+        label: "Pool Toys",
+        items: [
+          { text: "Dive rings or dive sticks (Mom is bringing — still pack if you have extras)" },
+          { text: "Water squirters — huge hit with all ages" },
+          { text: "Mesh bag to hold all small pool toys" },
+          { text: "Stacking cups / bath toys (double as pool toys for the 2-year-old)" },
+        ]
+      },
+      {
+        label: "🚗 Car — Toddler Survival Kit",
+        items: [
+          { text: "2-3 brand new small toys she's never seen", note: "Dollar section at Target! Wrap them individually to stretch out the novelty. She won't know what hit her." },
+          { text: "Crayola Color Wonder mess-free coloring book + markers", note: "No marks on the car seat — genius invention." },
+          { text: "Sticker books" },
+          { text: "Play-Doh in a small container (if she's not a thrower 😅)" },
+          { text: "Snack trap cup loaded with her favorites (Goldfish, puffs, raisins)" },
+          { text: "A lollipop or special treat saved ONLY for the car" },
+          { text: "Download new episodes of her favorite show on the tablet before you leave" },
+          { text: "Small spray bottle of water — toddlers weirdly love this" },
+          { text: "Busy board or sensory quiet book if you have one" },
+          { text: "Change of clothes for her in the middle of the car — NOT buried in the trunk" },
+          { text: "Wet wipes within arm's reach at all times" },
+        ]
+      },
+      {
+        label: "🚗 Car — Everyone Else",
+        items: [
+          { text: "TV in the car ✅ (already handled)" },
+          { text: "Headphones for older kids — so you're not managing competing audio" },
+          { text: "Tablets + chargers for the kids" },
+          { text: "Over-the-seat organizer for snacks and toys", note: "Keeps things from flying everywhere and puts snacks in reach without you digging." },
+          { text: "Snacks for the drive (older kids + adults)" },
+          { text: "Buc-ee's stop planned 🎉 — build in time for it, it's worth the chaos reset" },
+          { text: "Laundry bag or trash bag for wet swimsuits on the way home" },
+        ]
+      },
       {
         label: "For the 2-year-old",
         items: [
           { text: "Pack n play or travel crib if needed" },
           { text: "Sound machine" },
+          { text: "Sissy's blankie ⭐" },
           { text: "Favorite stuffed animal / lovey" },
           { text: "Snack cup + sippy cup" },
           { text: "Bibs" },
           { text: "A few small toys" },
+          { text: "Board books — familiar ones help with sleep in a new place" },
+          { text: "Bubble wand — pack one, thank yourself later" },
+          { text: "Bath crayons", note: "Great for the rental tub, easy cleanup, toddlers love them." },
         ]
       },
       {
-        label: "For All Kids",
+        label: "Coffee Station ☕",
         items: [
-          { text: "Tablets or devices + chargers" },
-          { text: "Headphones" },
-          { text: "Card games or small travel games" },
-          { text: "Glow sticks for 4th of July night" },
+          { text: "Espresso machine" },
+          { text: "Coffee beans" },
+          { text: "Cups / lids / straws" },
+          { text: "Frother" },
+          { text: "Syrups" },
         ]
       },
       {
         label: "Adults",
         items: [
+          { text: "Fan for the bedroom" },
           { text: "Phone chargers — everyone" },
           { text: "Portable charger / power bank" },
           { text: "Camera or GoPro" },
-          { text: "Cash for Saturday food trucks (if group goes that route at lunch)" },
-          { text: "Daily medications for anyone who takes them" },
+          { text: "Cash — food trucks Saturday + general spending" },
+          { text: "Daily medications & vitamins" },
           { text: "ID & insurance cards" },
+          { text: "Phone mount or way to prop phone for pool photos" },
+          { text: "Swimsuit cover-up or easy poolside outfit" },
         ]
       }
     ]
