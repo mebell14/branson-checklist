@@ -282,7 +282,8 @@ const data = [
     title: "Pre-Trip To-Do",
     items: [
       { text: "Grocery shop by Wednesday" },
-      { text: "Make pasta salad Thursday morning before leaving", note: "Better after sitting — make early!" },
+      { text: "Make baked beans Wednesday — can reheat at the rental", note: "Homemade or canned, either works. Make ahead so Thursday is easy." },
+      { text: "Make coleslaw Wednesday and refrigerate", note: "Better after sitting overnight anyway!" },
       { text: "Pre-pack brownie bite ingredients (bake at rental)" },
       { text: "Prep monkey bread ingredients before leaving (or assemble Thursday night)", note: "Bake Friday morning — feeds the whole house!" },
       { text: "Pack coolers Wednesday night so they're cold" },
@@ -338,7 +339,9 @@ const data = [
       {
         label: "Wednesday Jul 2",
         items: [
-          { text: "Make the pasta salad 🥗 — refrigerate so it has time to chill" },
+          { text: "Make baked beans 🫘 — refrigerate to reheat at the rental" },
+          { text: "Make coleslaw 🥗 — refrigerate overnight, better after sitting" },
+          { text: "Prep green salad ingredients & pack separately", note: "Don't dress it until you're ready to serve" },
           { text: "Pack the coolers with drinks & ice" },
           { text: "Load the car — big stuff first (coolers, pack n play, luggage)" },
           { text: "Set out everything going in the car so nothing gets left" },
@@ -351,7 +354,7 @@ const data = [
         items: [
           { text: "Assemble monkey bread & refrigerate for Friday morning ⭐" },
           { text: "Last sweep of every room" },
-          { text: "Grab pasta salad from fridge — don't leave it! ⭐" },
+          { text: "Grab baked beans, coleslaw & salad ingredients from fridge — don't leave them! ⭐" },
           { text: "Gas up the car" },
           { text: "GO! 🎆" },
         ]
@@ -386,9 +389,12 @@ const data = [
         ]
       },
       {
-        label: "Friday Supper — Mom's Pulled Pork + Your Side",
+        label: "Friday Supper — Mom's Pulled Pork + Your Sides",
         items: [
-          { text: "Classic pasta salad — make Thursday morning before leaving!", note: "Better after sitting in the fridge" },
+          { text: "Green salad — dress at the rental right before serving" },
+          { text: "Baked beans — make Wednesday, reheat in oven or on stove at rental" },
+          { text: "Coleslaw — make Wednesday, stays great in the fridge overnight" },
+          { text: "Note: pasta salad, strawberry pretzel dessert & cheeseball are covered by someone else ✅" },
         ]
       },
       {
@@ -429,35 +435,63 @@ const data = [
       {
         label: "Produce",
         items: [
-          { text: "Strawberries (2 lbs)" },
-          { text: "Blueberries (2 pints)" },
+          { text: "Spring mix (green salad)" },
+          { text: "Strawberries (2 lbs — fruit skewers)" },
+          { text: "Blueberries (2 pints — fruit skewers)" },
           { text: "Bananas" },
-          { text: "Cherry tomatoes" },
-          { text: "Cucumber" },
-          { text: "Apples (breakfast fruit)" },
-          { text: "Lettuce & tomato (grill out toppings)" },
+          { text: "Apples (breakfast + pool snack)" },
+          { text: "Grapes (pool snack — wash & pack in a zip bag)" },
+          { text: "Watermelon — whole or pre-cut 🍉", note: "Basically mandatory at a pool. Get a big one." },
+          { text: "Cantaloupe (cut into chunks for pool)" },
+          { text: "Veggie tray (pre-made from store is easiest)" },
+          { text: "Tomatoes — cherry or sliced (salad + grill out)" },
+          { text: "Cucumber (salad)" },
+          { text: "Shredded coleslaw mix (bag)" },
+          { text: "Red onion (salad & coleslaw, optional)" },
         ]
       },
       {
-        label: "Dairy",
+        label: "Salad — Friday Supper",
+        items: [
+          { text: "Spring mix ✅ (in produce)" },
+          { text: "Feta cheese (crumbled)" },
+          { text: "Croutons" },
+          { text: "Craisins" },
+          { text: "Honey roasted peanuts" },
+          { text: "White vinaigrette dressing" },
+        ]
+      },
+      {
+        label: "Dairy & Refrigerated",
         items: [
           { text: "Cream cheese (1 block)" },
-          { text: "Colby jack cheese cubes (pasta salad)", note: "Don't skip this — it was removed with charcuterie but still needed for the pasta salad!" },
-          { text: "Shredded parmesan" },
           { text: "American cheese slices (grill out)" },
           { text: "Individual yogurts (6–9)" },
           { text: "Eggs (2 dozen)" },
           { text: "Butter" },
           { text: "Cool Whip (1 tub)" },
+          { text: "String cheese (pool snack)" },
+          { text: "Ranch dip (for veggie tray)" },
+          { text: "Peanut butter cups (for apples at pool)" },
         ]
       },
       {
         label: "Meat",
         items: [
-          { text: "Pepperoni — large pack (pasta salad)" },
           { text: "Bacon or sausage links (breakfast)" },
           { text: "Ground beef (2 lbs) — Saturday grill out" },
           { text: "Hot dogs (2 packs) — Saturday grill out" },
+        ]
+      },
+      {
+        label: "Condiments & Dressings",
+        items: [
+          { text: "White vinaigrette (salad) ✅ (in salad section)" },
+          { text: "Coleslaw dressing or mayo + apple cider vinegar + sugar to make your own" },
+          { text: "Ketchup, mustard, mayo (grill out)" },
+          { text: "Salsa (2 jars)" },
+          { text: "Queso dip (2 jars)" },
+          { text: "Guacamole (jarred)" },
         ]
       },
       {
@@ -475,23 +509,48 @@ const data = [
       {
         label: "Dry & Pantry",
         items: [
-          { text: "Rotini pasta (2 boxes)" },
-          { text: "Italian dressing (1 large bottle)" },
-          { text: "Black olives (1 can)" },
+          { text: "Baked beans — canned or ingredients to make from scratch (brown sugar, bacon, ketchup, mustard, onion)" },
           { text: "Tortilla chips (2 bags)" },
-          { text: "Salsa (2 jars)" },
-          { text: "Queso dip (2 jars)" },
-          { text: "Guacamole (jarred)" },
           { text: "Brownie mix (2 boxes)" },
           { text: "Marshmallow fluff" },
-          { text: "Granola bars (2 boxes)" },
+          { text: "Granola bars (2 boxes — breakfast + pool snack)" },
           { text: "Muffins (bakery or mix)" },
           { text: "Frozen biscuits or crescent rolls" },
           { text: "OJ" },
           { text: "Coffee + creamer" },
           { text: "Burger buns" },
           { text: "Hot dog buns" },
-          { text: "Ketchup, mustard, mayo" },
+          { text: "Craisins ✅ (in salad section)" },
+          { text: "Honey roasted peanuts ✅ (in salad section)" },
+          { text: "Croutons ✅ (in salad section)" },
+        ]
+      },
+      {
+        label: "Pool Snacks — Packaged",
+        items: [
+          { text: "Goldfish crackers" },
+          { text: "Dot's pretzels" },
+          { text: "Individual chip bags (variety pack)" },
+          { text: "Rice Krispie treats" },
+          { text: "Fruit snacks / gummies" },
+          { text: "Cosmic brownies" },
+          { text: "Oatmeal cream pies" },
+          { text: "Peanut butter crackers" },
+        ]
+      },
+      {
+        label: "Drinks",
+        items: [
+          { text: "Capri Sun (juice pouches for kids)" },
+          { text: "Gatorade" },
+          { text: "Water bottles / drinks for adults" },
+          { text: "Kids' reusable water bottles to refill ✅ (pack from home)" },
+        ]
+      },
+      {
+        label: "Frozen",
+        items: [
+          { text: "Freezer pops (plastic tube pops — cheap, kids LOVE them)", note: "Grab a big box — they go fast at the pool." },
         ]
       },
       {
@@ -526,7 +585,7 @@ const data = [
       { text: "Bluetooth speaker" },
       { text: "Folding camp chairs for poolside" },
       { text: "Pop-up shade tent or umbrella (great for the 2-year-old)" },
-      { text: "Reusable water bottles — 1 per person" },
+      { text: "Reusable water bottles — 1 per person (kids' bottles from home to refill)" },
       { text: "Bug spray" },
       { text: "Swim goggles for older kids" },
       { text: "Glow sticks for 4th of July night 🎆" },
