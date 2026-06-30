@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Branson 4th of July 🎆</title>
+  <title>Branson 4th of July</title>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap');
 
@@ -81,6 +83,16 @@
       color: var(--gold);
       margin-top: 0.4rem;
       letter-spacing: 0.05em;
+    }
+
+    .sync-status {
+      font-size: 0.7rem;
+      color: #88C999;
+      margin-top: 0.5rem;
+    }
+
+    .sync-status.offline {
+      color: #E0A458;
     }
 
     .controls {
@@ -244,10 +256,6 @@
       padding: 0.25rem 1.25rem 0.5rem 3.25rem;
     }
 
-    .todo-section .item label {
-      font-weight: 500;
-    }
-
     @media (max-width: 600px) {
       header h1 { font-size: 1.8rem; }
       .controls { gap: 0.5rem; }
@@ -257,12 +265,13 @@
 <body>
 
 <header>
-  <h1>Branson 4th of July 🎆</h1>
-  <p>Thursday Jul 3 — Sunday Jul 6 &nbsp;·&nbsp; Family of 6</p>
+  <h1>Branson 4th of July</h1>
+  <p>Wed Jul 1 — Sun Jul 5</p>
   <div class="progress-bar-wrap">
     <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
   </div>
   <div class="progress-label" id="progressLabel">0 of 0 checked</div>
+  <div class="sync-status" id="syncStatus">Connecting...</div>
 </header>
 
 <div class="controls">
@@ -275,6 +284,20 @@
 <main id="checklist"></main>
 
 <script>
+const firebaseConfig = {
+  apiKey: "AIzaSyANX_tFtMT8CnhEXJXcHtw6-Tq0sEbnnEM",
+  authDomain: "branson-checklist.firebaseapp.com",
+  databaseURL: "https://branson-checklist-default-rtdb.firebaseio.com",
+  projectId: "branson-checklist",
+  storageBucket: "branson-checklist.firebasestorage.app",
+  messagingSenderId: "322024877968",
+  appId: "1:322024877968:web:4f6797761435df60bbcd15"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+const checklistRef = db.ref('checklist');
+
 const data = [
   {
     id: "todo",
@@ -970,17 +993,60 @@ const data = [
   },
 ];
 
+let checked = {};
+
+function sanitizeKey(key) {
+  return key.replace(/[.#$\[\]\/]/g, '_');
+}
+
+function getAllItems(section) {
+  const keys = [];
+  const prefix = section.id;
+  if (section.items) {
+    section.items.forEach(item => keys.push(prefix + '::' + item.text));
+  }
+  if (section.subsections) {
+    section.subsections.forEach(sub => {
+      const subPrefix = prefix + '_' + sub.label.replace(/\s+/g,'_');
+      sub.items.forEach(item => keys.push(subPrefix + '::' + item.text));
+    });
+  }
+  return keys;
+}
+
+checklistRef.on('value', (snapshot) => {
+  const val = snapshot.val();
+  checked = val || {};
+  buildChecklist();
+  document.getElementById('syncStatus').textContent = 'Synced across all devices';
+  document.getElementById('syncStatus').classList.remove('offline');
+}, (error) => {
+  document.getElementById('syncStatus').textContent = 'Offline - changes will sync when reconnected';
+  document.getElementById('syncStatus').classList.add('offline');
+});
+
+function setChecked(key, value) {
+  const safeKey = sanitizeKey(key);
+  checklistRef.child(safeKey).set(value);
+}
+
 function buildChecklist() {
   const main = document.getElementById('checklist');
+  const collapsedState = {};
+  document.querySelectorAll('.section').forEach(s => {
+    collapsedState[s.dataset.id] = s.classList.contains('collapsed');
+  });
+
   main.innerHTML = '';
 
   data.forEach(section => {
     const sec = document.createElement('div');
     sec.className = 'section';
     sec.dataset.id = section.id;
+    if (collapsedState[section.id]) sec.classList.add('collapsed');
 
     const allItems = getAllItems(section);
-    const checkedCount = allItems.filter(k => localStorage.getItem(k) === 'true').length;
+    const checkedCount = allItems.filter(k => checked[sanitizeKey(k)] === true).length;
     const isComplete = allItems.length > 0 && checkedCount === allItems.length;
 
     const header = document.createElement('div');
@@ -1030,25 +1096,24 @@ function buildChecklist() {
 
 function buildItem(prefix, item) {
   const key = prefix + '::' + item.text;
-  const checked = localStorage.getItem(key) === 'true';
+  const safeKey = sanitizeKey(key);
+  const isChecked = checked[safeKey] === true;
 
   const div = document.createElement('div');
-  div.className = 'item' + (checked ? ' checked' : '');
+  div.className = 'item' + (isChecked ? ' checked' : '');
 
   const id = 'cb_' + Math.random().toString(36).slice(2);
   const cb = document.createElement('input');
   cb.type = 'checkbox';
   cb.id = id;
-  cb.checked = checked;
+  cb.checked = isChecked;
 
   const lbl = document.createElement('label');
   lbl.htmlFor = id;
   lbl.textContent = item.text;
 
   cb.addEventListener('change', () => {
-    localStorage.setItem(key, cb.checked);
-    div.classList.toggle('checked', cb.checked);
-    buildChecklist();
+    setChecked(key, cb.checked);
   });
 
   div.addEventListener('click', e => {
@@ -1068,31 +1133,16 @@ function buildItem(prefix, item) {
   return div;
 }
 
-function getAllItems(section) {
-  const keys = [];
-  const prefix = section.id;
-  if (section.items) {
-    section.items.forEach(item => keys.push(prefix + '::' + item.text));
-  }
-  if (section.subsections) {
-    section.subsections.forEach(sub => {
-      const subPrefix = prefix + '_' + sub.label.replace(/\s+/g,'_');
-      sub.items.forEach(item => keys.push(subPrefix + '::' + item.text));
-    });
-  }
-  return keys;
-}
-
 function updateProgress() {
-  let total = 0, checked = 0;
+  let total = 0, checkedCount = 0;
   data.forEach(section => {
     const keys = getAllItems(section);
     total += keys.length;
-    checked += keys.filter(k => localStorage.getItem(k) === 'true').length;
+    checkedCount += keys.filter(k => checked[sanitizeKey(k)] === true).length;
   });
-  const pct = total === 0 ? 0 : Math.round((checked / total) * 100);
+  const pct = total === 0 ? 0 : Math.round((checkedCount / total) * 100);
   document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('progressLabel').textContent = `${checked} of ${total} checked`;
+  document.getElementById('progressLabel').textContent = `${checkedCount} of ${total} checked`;
 }
 
 function expandAll() {
@@ -1103,19 +1153,13 @@ function collapseAll() {
 }
 function checkAll() {
   data.forEach(section => {
-    getAllItems(section).forEach(k => localStorage.setItem(k, 'true'));
+    getAllItems(section).forEach(k => setChecked(k, true));
   });
-  buildChecklist();
 }
 function clearAll() {
-  if (!confirm('Clear all checkmarks?')) return;
-  data.forEach(section => {
-    getAllItems(section).forEach(k => localStorage.removeItem(k));
-  });
-  buildChecklist();
+  if (!confirm('Clear all checkmarks for everyone? This affects all devices.')) return;
+  checklistRef.remove();
 }
-
-buildChecklist();
 </script>
 </body>
 </html>
